@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width="device-width", initial-scale=1.0">
+    <title>韩国全景度假指南 | 釜山 · 首尔 · 郑州返程</title>
+    <style>
+        :root {
+            --primary: #1d4ed8;
+            --primary-light: #eff6ff;
+            --accent: #f97316;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --tag-bg: #f1f5f9;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Sticky Bar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 16px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+        .btn-print {
+            background: var(--primary);
+            color: white !important;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 32px 20px 80px;
+        }
+
+        /* Hero Header */
+        .hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #38bdf8 100%);
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: 48px 36px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::after {
+            content: "✈️";
+            position: absolute;
+            right: 20px;
+            bottom: -20px;
+            font-size: 140px;
+            opacity: 0.12;
+            pointer-events: none;
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        .hero p.subtitle {
+            font-size: 1.1rem;
+            opacity: 0.92;
+            max-width: 780px;
+            margin-bottom: 24px;
+        }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 14px 18px;
+            border-radius: var(--radius-md);
+        }
+        .stat-card .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+        .stat-card .value {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        /* Section Titles */
+        .section-header {
+            margin: 48px 0 20px;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header .tag {
+            font-size: 0.85rem;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-weight: 600;
+        }
+
+        /* Summary Table */
+        .table-wrap {
+            overflow-x: auto;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            margin-bottom: 32px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+        th {
+            background: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 600;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+        .badge-orange { background: #ffedd5; color: #9a3412; }
+        .badge-green { background: #dcfce7; color: #166534; }
+        .badge-purple { background: #f3e8ff; color: #6b21a8; }
+
+        /* Day Card */
+        .day-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            margin-bottom: 36px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .day-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+        .day-media {
+            position: relative;
+            background: #0f172a;
+            min-height: 320px;
+        }
+        .day-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .day-media-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(8px);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .day-content {
+            padding: 24px 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .day-title-wrap {
+            margin-bottom: 16px;
+        }
+        .day-date {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .day-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 4px 0 8px;
+        }
+        .day-hotel {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: #475569;
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .timeline-block {
+            margin: 8px 0;
+            position: relative;
+            padding-left: 18px;
+            border-left: 2px solid #e2e8f0;
+        }
+        .timeline-time {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.88rem;
+            margin-bottom: 2px;
+        }
+        .timeline-desc {
+            font-size: 0.92rem;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+
+        .day-footer {
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px dashed var(--border-color);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+        .tip-tag {
+            font-size: 0.8rem;
+            background: #fff7ed;
+            color: #c2410c;
+            border: 1px solid #fed7aa;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        /* Checklist Grid */
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .check-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 22px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+        .check-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-main);
+        }
+        .check-list {
+            list-style: none;
+        }
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: #334155;
+        }
+        .check-item input[type="checkbox"] {
+            margin-top: 3px;
+            accent-color: var(--primary);
+            width: 17px;
+            height: 17px;
+            cursor: pointer;
+        }
+        .check-item label {
+            cursor: pointer;
+            flex: 1;
+        }
+        .check-item.done label {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        /* Taxi Flashcards */
+        .flashcard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        .flashcard {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            border: 2px dashed #cbd5e1;
+            padding: 18px;
+            position: relative;
+        }
+        .flashcard-title {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .flashcard-kr {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+        }
+        .flashcard-addr {
+            font-size: 0.85rem;
+            color: #475569;
+            background: #f8fafc;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 860px) {
+            .day-card {
+                grid-template-columns: 1fr;
+            }
+            .day-media {
+                height: 240px;
+                min-height: auto;
+            }
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media print {
+            .navbar, .btn-print { display: none !important; }
+            body { background: white; }
+            .day-card { page-break-inside: avoid; border: 1px solid #ccc; box-shadow: none; }
+            .hero { background: #2563eb !important; color: white !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span>🇰🇷</span> 韩国全景度假行前指引
+        </div>
+        <div class="nav-links">
+            <a href="#table-section">行程总览表</a>
+            <a href="#itinerary-section">逐日详细行程</a>
+            <a href="#checklist-section">行前准备清单</a>
+            <a href="#taxi-section">打车中韩对照</a>
+            <a href="javascript:window.print()" class="btn-print">🖨️ 打印 / 存PDF</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>釜山海滨 · 首尔摩登 · 郑州休整 8日全境行</h1>
+            <p class="subtitle">2026年9月25日 — 10月2日（国庆黄金周定制方案）。海云台晚风、全景天空胶囊、夜间KTX极速进京、江南帕纳斯洲际、首尔潮流探店与落地万怡从容躺平。</p>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="label">去程直飞航班</div>
+                    <div class="value">9.25 PVG T1 ➔ PUS (13:35-16:50)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">城际核心高铁</div>
+                    <div class="value">9.28 KTX直达 (10:47-13:25)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">回程直飞航班</div>
+                    <div class="value">10.2 ICN T1 ➔ CGO T2 (约21:15-22:45)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">精选下榻体验</div>
+                    <div class="value">海云台万枫 3晚 + 江南洲际 4晚 + 万怡</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Table Section -->
+        <div class="section-header" id="table-section">
+            <h2>📅 全程总览与关键转场时刻表</h2>
+            <span class="tag">快速核对表</span>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>路线 / 城市</th>
+                        <th>行程核心亮点</th>
+                        <th>当日住宿</th>
+                        <th>核心大交通 & 时间节点</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>9.25 (D1)</strong></td>
+                        <td>上海浦东 ➔ 釜山</td>
+                        <td>抵达釜山、海云台海滩晚霞、传统市场夜市（烤盲鳗/糖饼）</td>
+                        <td><span class="badge badge-blue">釜山海云台万枫酒店</span></td>
+                        <td>✈ <strong>PVG T1 (13:35) ➔ PUS 国际 (16:50)</strong><br>🚕 机场打车直达酒店约 45-50 分钟</td>
+                    </tr>
+                    <tr>
+                        <td><strong>9.26 (D2)</strong></td>
+                        <td>釜山</td>
+                        <td>海东龙宫寺、青沙浦海鲜、蓝线公园天空胶囊列车、广安里大桥夜景</td>
+                        <td><span class="badge badge-blue">釜山海云台万枫酒店</span></td>
+                        <td>地铁 2 号线 / 观光胶囊小火车 / 出租车</td>
+                    </tr>
+                    <tr>
+                        <td><strong>9.27 (D3)</strong></td>
+                        <td>釜山</td>
+                        <td>甘川文化村（小王子）、白浅滩海岸悬崖咖啡街、扎嘎其海鲜市场</td>
+                        <td><span class="badge badge-blue">釜山海云台万枫酒店</span></td>
+                        <td>出租车 / 地铁 1 号线</td>
+                    </tr>
+                    <tr>
+                        <td><strong>9.28 (D4)</strong></td>
+                        <td>釜山 ➔ 首尔</td>
+                        <td>釜山慢活（新世界 Spa Land 顶奢汗蒸 / 迎月路）、<strong>夜间 KTX 进京</strong></td>
+                        <td><span class="badge badge-purple">首尔帕纳斯洲际酒店</span></td>
+                        <td>🚄 <strong>KTX 釜山站 (20:40) ➔ 首尔站 (23:23)</strong><br>🚕 深夜打车 20 分钟直达江南洲际（约 00:00 入住）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>9.29 (D5)</strong></td>
+                        <td>首尔</td>
+                        <td>洲际睡到自然醒、COEX 星空图书馆、昌德宫古典园林、益善洞韩屋、明洞</td>
+                        <td><span class="badge badge-purple">首尔帕纳斯洲际酒店</span></td>
+                        <td>地铁 2 / 3 / 4 号线 / 步行</td>
+                    </tr>
+                    <tr>
+                        <td><strong>9.30 (D6)</strong></td>
+                        <td>首尔</td>
+                        <td>圣水洞工业风潮流探店、汝矣岛 The Hyundai 百货、汉江公园落日拉面野餐</td>
+                        <td><span class="badge badge-purple">首尔帕纳斯洲际酒店</span></td>
+                        <td>地铁 2 / 5 号线</td>
+                    </tr>
+                    <tr>
+                        <td><strong>10.1 (D7)</strong></td>
+                        <td>首尔</td>
+                        <td>汉南洞设计师街区、延南洞森林步道、江南炭火高品质韩牛盛宴</td>
+                        <td><span class="badge badge-purple">首尔帕纳斯洲际酒店</span></td>
+                        <td>地铁 6 / 2 号线 / 出租车</td>
+                    </tr>
+                    <tr>
+                        <td><strong>10.2 (D8)</strong></td>
+                        <td>首尔 ➔ 郑州</td>
+                        <td>现代百货免税补货、6103大巴直达仁川、<strong>夜飞抵郑入驻万怡</strong></td>
+                        <td><span class="badge badge-green">郑州航空港万怡酒店</span></td>
+                        <td>🚌 洲际门前 6103 机场大巴直达仁川 T1（约 70 分）<br>✈ <strong>仁川 T1 (约21:15起飞) ➔ 新郑 T2 (22:45降落)</strong><br>🚕 落地打车 8 分钟直达万怡，半小时躺平</td>
+                    </tr>
+                    <tr>
+                        <td><strong>10.3-4</strong></td>
+                        <td>郑州港区 ➔ 市区</td>
+                        <td>万怡睡到自然醒、整理战利品、犒劳中国胃、避峰从容返回市区</td>
+                        <td><span class="badge badge-orange">温馨的家</span></td>
+                        <td>🚄 机场站城际高铁 16 分钟直达郑州东站<br>或 滴滴上机场高速 35 分钟直达市区</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Itinerary Detail Section -->
+        <div class="section-header" id="itinerary-section">
+            <h2>🗺️ 逐日详细执行手册与实景指引</h2>
+            <span class="tag">每日卡片</span>
+        </div>
+
+        <!-- Day 1 -->
+        <div class="day-card">
+            <div class="day-media">
+                <img src="images/day1_busan_haeundae.png" alt="Day 1 海云台晚霞与夜市">
+                <span class="day-media-badge">Day 1 · 启程抵韩</span>
+            </div>
+            <div class="day-content">
+                <div class="day-title-wrap">
+                    <div class="day-date">9月25日 星期五</div>
+                    <h3 class="day-title">初见釜山 · 海云台海滩晚风与传统市场夜市</h3>
+                    <div class="day-hotel">🏨 釜山海云台万枫酒店 (Fairfield by Marriott Busan)</div>
+                </div>
+                <div class="day-timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">11:00 - 13:35</div>
+                        <div class="timeline-desc">提前 2.5 小时抵浦东机场 T1 航站楼，办理登机托运与出境，准时起飞（航程约 2h15m）。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">16:50 - 17:50 (韩国时间)</div>
+                        <div class="timeline-desc">降落釜山金海机场国际航站楼。办理边防与行李提取，在机场便利店购买充值 T-Money 卡。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">17:50 - 18:40</div>
+                        <div class="timeline-desc">机场出口打车直奔海云台万枫酒店（途经广安大桥海上高架，约 45-50 分钟，车费约 3.5万~4.5万 韩元）。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">18:50 - 21:30</div>
+                        <div class="timeline-desc">万枫办理入住。步行 3 分钟到海滩吹海风赏晚霞；步行 4 分钟至海云台传统市场享用晚餐：炭火烤盲鳗、尚国家辣炒年糕、现炸坚果糖饼。</div>
+                    </div>
+                </div>
+                <div class="day-footer">
+                    <span class="tip-tag">💡 准备适量韩元现金充值 T-Money</span>
+                    <span class="tip-tag">💡 酒店步行 4 分钟即达美食市场</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="day-card">
+            <div class="day-media">
+                <img src="images/day2_busan_skycapsule.png" alt="Day 2 蓝线公园天空胶囊列车">
+                <span class="day-media-badge">Day 2 · 山海绝景</span>
+            </div>
+            <div class="day-content">
+                <div class="day-title-wrap">
+                    <div class="day-date">9月26日 星期六</div>
+                    <h3 class="day-title">绝美海岸线 · 天空胶囊列车与青沙浦海鲜</h3>
+                    <div class="day-hotel">🏨 釜山海云台万枫酒店 (Fairfield by Marriott Busan)</div>
+                </div>
+                <div class="day-timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">09:30 - 11:30</div>
+                        <div class="timeline-desc">打车 20 分钟前往海东龙宫寺，游览依山傍海的绝壁古刹，晨光洒在海浪上禅意十足。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">11:30 - 13:30</div>
+                        <div class="timeline-desc">前往青沙浦打卡“小镰仓”海景铁道与红白双胞胎灯塔。在沿海餐厅享用炭火现烤大扇贝与海鲜拼盘。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">14:00 - 15:30</div>
+                        <div class="timeline-desc">搭乘海云台蓝线公园彩色天空胶囊列车（青沙浦 ➔ 尾浦），沿悬崖海景慢速滑行，极其出片。终点尾浦站步行 10 分钟回酒店。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">17:00 - 20:30</div>
+                        <div class="timeline-desc">傍晚打车至广安里海水浴场，临海二楼咖啡厅赏落日；在民乐生鱼片城品尝现切刺身，沙滩欣赏璀璨大桥灯光秀。</div>
+                    </div>
+                </div>
+                <div class="day-footer">
+                    <span class="tip-tag">💡 胶囊列车务必提前在官网预约</span>
+                    <span class="tip-tag">💡 尾浦站沿木栈道可直接步行回酒店</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-card">
+            <div class="day-media">
+                <img src="images/day3_busan_culture_villages.png" alt="Day 3 甘川与白浅滩文化村">
+                <span class="day-media-badge">Day 3 · 文艺山海</span>
+            </div>
+            <div class="day-content">
+                <div class="day-title-wrap">
+                    <div class="day-date">9月27日 星期日</div>
+                    <h3 class="day-title">艺术山城 · 甘川文化村与影岛白浅滩悬崖咖啡</h3>
+                    <div class="day-hotel">🏨 釜山海云台万枫酒店 (Fairfield by Marriott Busan)</div>
+                </div>
+                <div class="day-timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">09:30 - 12:00</div>
+                        <div class="timeline-desc">前往甘川文化村，漫步如马卡龙般的彩色阶梯村落，寻找小王子与沙漠狐狸雕像俯瞰港口。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">12:30 - 15:30</div>
+                        <div class="timeline-desc">前往影岛白浅滩文化村。沿着临海纯白栈道散步，挑选一家拥有落地窗的海景咖啡馆点一杯拿铁看海放空。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">16:30 - 20:00</div>
+                        <div class="timeline-desc">打车至南浦洞与扎嘎其海鲜市场，感受釜山老城烟火气与 BIFF 电影广场。晚餐享用正宗热腾腾的釜山猪肉汤饭。</div>
+                    </div>
+                </div>
+                <div class="day-footer">
+                    <span class="tip-tag">💡 文化村台阶较多，建议穿舒适运动鞋</span>
+                    <span class="tip-tag">💡 扎嘎其周边有许多地道釜山鱼糕伴手礼</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-card">
+            <div class="day-media">
+                <img src="images/day4_ktx_to_seoul_gangnam.png" alt="Day 4 KTX直达首尔与江南洲际">
+                <span class="day-media-badge">Day 4 · 温泉转场</span>
+            </div>
+            <div class="day-content">
+                <div class="day-title-wrap">
+                    <div class="day-date">9月28日 星期一</div>
+                    <h3 class="day-title">釜山慢活温泉 ➔ 夜行 KTX 直达首尔江南洲际</h3>
+                    <div class="day-hotel">🏨 首尔帕纳斯洲际酒店 (Grand InterContinental Seoul Parnas)</div>
+                </div>
+                <div class="day-timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">11:30 - 12:00</div>
+                        <div class="timeline-desc">万枫退房，行李免费寄存于前台。白天完整多赚一整天釜山悠闲时光！</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">12:00 - 18:30</div>
+                        <div class="timeline-desc">推荐打车至新世界百货 Centum City 店，在顶奢 Spa Land 体验天然温泉汗蒸幕（多温矿物池、户外足浴榻），彻底洗去疲乏并逛百货。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">18:30 - 20:25</div>
+                        <div class="timeline-desc">海云台享用母牛排骨等晚餐，回酒店取行李。19:40 打车至釜山站（约 35 分钟）。进站无闸机安检，买古来思鱼糕上车。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">20:40 - 23:23</div>
+                        <div class="timeline-desc"><strong>搭乘 KTX 准点发车</strong>，23:23 停靠首尔站。顺着黄色 Taxi 指示牌出站上出租车，深夜畅通 20 分钟直达江南洲际酒店（00:00 入住）。</div>
+                    </div>
+                </div>
+                <div class="day-footer">
+                    <span class="tip-tag">💡 已提前备注酒店 00:00 午夜入住</span>
+                    <span class="tip-tag">💡 首尔站室内直接走到出租车排队点</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-card">
+            <div class="day-media">
+                <img src="images/day5_seoul_coex_palace.png" alt="Day 5 COEX星空图书馆与昌德宫">
+                <span class="day-media-badge">Day 5 · 古今交汇</span>
+            </div>
+            <div class="day-content">
+                <div class="day-title-wrap">
+                    <div class="day-date">9月29日 星期二</div>
+                    <h3 class="day-title">慢醒首尔 · 星空图书馆、昌德宫与益善洞韩屋</h3>
+                    <div class="day-hotel">🏨 首尔帕纳斯洲际酒店 (Grand InterContinental Seoul Parnas)</div>
+                </div>
+                <div class="day-timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">10:00 - 12:30</div>
+                        <div class="timeline-desc">不设闹钟睡到自然醒，享用酒店精致早餐。地下直通 COEX Mall，打卡星空图书馆巨型书墙；过马路漫步千年古刹奉恩寺。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">13:30 - 17:00</div>
+                        <div class="timeline-desc">前往首尔最富东方自然园林韵味的昌德宫。随后漫步益善洞韩屋村，老宅改造的咖啡店、手作香氛与甜品店林立。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">17:30 - 21:00</div>
+                        <div class="timeline-desc">前往明洞感受繁华商圈。傍晚乘南山缆车登上 N首尔塔，俯瞰江南江北万家灯火与汉江波光。</div>
+                    </div>
+                </div>
+                <div class="day-footer">
+                    <span class="tip-tag">💡 昌德宫环境清幽自然，比景福宫更宜漫步</span>
+                    <span class="tip-tag">💡 洲际地下直通地铁 2 号线三成站</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 6 -->
+        <div class="day-card">
+            <div class="day-media">
+                <img src="images/day6_seoul_seongsu_hangang.png" alt="Day 6 圣水洞与汉江野餐">
+                <span class="day-media-badge">Day 6 · 潮流先锋</span>
+            </div>
+            <div class="day-content">
+                <div class="day-title-wrap">
+                    <div class="day-date">9月30日 星期三</div>
+                    <h3 class="day-title">前沿首尔 · 圣水红砖潮流与汝矣岛汉江落日野餐</h3>
+                    <div class="day-hotel">🏨 首尔帕纳斯洲际酒店 (Grand InterContinental Seoul Parnas)</div>
+                </div>
+                <div class="day-timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">10:30 - 14:00</div>
+                        <div class="timeline-desc">前往工业风潮流地标圣水洞。探访 Dior 概念店、Gentle Monster Tamburins 旗舰店与 Onion 红砖咖啡馆。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">14:30 - 17:00</div>
+                        <div class="timeline-desc">前往首尔现象级商场 The Hyundai Seoul（汝矣岛现代百货），漫步 5 层的室内绿洲“Sounds Forest”，逛 B2 潮牌集合区。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">17:00 - 19:30</div>
+                        <div class="timeline-desc">步行至汝矣岛汉江公园，体验最纯正的首尔慢生活：在便利店机器自煮汉江拉面，叫一份桥村炸鸡外卖，在草坪上看晚霞野餐。</div>
+                    </div>
+                </div>
+                <div class="day-footer">
+                    <span class="tip-tag">💡 汉江公园傍晚微凉，备一件轻薄外套</span>
+                    <span class="tip-tag">💡 The Hyundai 支持商场内即时现场退税</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 7 -->
+        <div class="day-card">
+            <div class="day-media">
+                <img src="images/day7_seoul_hannam_koreanbbq.png" alt="Day 7 汉南洞与韩牛盛宴">
+                <span class="day-media-badge">Day 7 · 艺术生活</span>
+            </div>
+            <div class="day-content">
+                <div class="day-title-wrap">
+                    <div class="day-date">10月1日 星期四</div>
+                    <h3 class="day-title">文艺街区 · 汉南洞设计师品牌与江南顶级韩牛晚宴</h3>
+                    <div class="day-hotel">🏨 首尔帕纳斯洲际酒店 (Grand InterContinental Seoul Parnas)</div>
+                </div>
+                <div class="day-timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">10:30 - 14:00</div>
+                        <div class="timeline-desc">漫步依山而建的使馆区汉南洞，打卡当红品牌（Mardi Mercredi、EMIS、Nonfiction 香氛等）及高品质咖啡馆。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">14:30 - 17:30</div>
+                        <div class="timeline-desc">前往延南洞京义线森林道，沿着老铁道改造的绿荫步道散步，逛逛独立文创杂货铺，体验街头年轻人的松弛氛围。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">18:30 - 21:00</div>
+                        <div class="timeline-desc">返回江南新沙洞/狎鸥亭，挑选高品质韩牛烤肉名店（如三元花园、大韩牛），在炭火香气中享用精致烤肉大餐，庆祝旅行圆满。</div>
+                    </div>
+                </div>
+                <div class="day-footer">
+                    <span class="tip-tag">💡 汉南洞地势起伏较大，穿平底鞋更轻松</span>
+                    <span class="tip-tag">💡 韩国顶级 1++ 韩牛口感极为细腻鲜嫩</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 8 -->
+        <div class="day-card">
+            <div class="day-media">
+                <img src="images/day8_seoul_departure_incheon.png" alt="Day 8 仁川机场直达返程">
+                <span class="day-media-badge">Day 8 · 从容归途</span>
+            </div>
+            <div class="day-content">
+                <div class="day-title-wrap">
+                    <div class="day-date">10月2日 星期五</div>
+                    <h3 class="day-title">免税扫货 ➔ 6103直达仁川 T1 ➔ 抵郑入住万怡</h3>
+                    <div class="day-hotel">🏨 郑州航空港万怡酒店 (落地直达躺平)</div>
+                </div>
+                <div class="day-timeline">
+                    <div class="timeline-block">
+                        <div class="timeline-time">10:00 - 12:00</div>
+                        <div class="timeline-desc">享用早餐，12:00 退房存行李。在地下连通的现代百货贸易中心店和 COEX 免税店补齐美妆护肤品及伴手礼。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">16:45 - 18:00</div>
+                        <div class="timeline-desc">回酒店取行李。洲际门前江南都心客运大楼直接搭乘高级机场大巴 6103 路直达仁川机场 T1（约 70 分钟，一站高速）。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">18:15 - 21:15</div>
+                        <div class="timeline-desc">提前 3 小时抵仁川 T1：办理值机托运、海关扫描退税单、出境并在免税店提货区提取网购商品。约 21:15 起飞。</div>
+                    </div>
+                    <div class="timeline-block">
+                        <div class="timeline-time">22:45 - 23:45 (北京时间)</div>
+                        <div class="timeline-desc"><strong>22:45 降落郑州新郑机场 T2</strong>。出关后打车 8 分钟（4公里）直达郑州航空港万怡酒店，00:00 前直接换睡衣躺平休息！</div>
+                    </div>
+                </div>
+                <div class="day-footer">
+                    <span class="tip-tag">💡 6103 大巴免除提大行李换乘地铁的折腾</span>
+                    <span class="tip-tag">💡 落地住万怡彻底避免深夜长途进市区的疲惫</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post-trip Recovery -->
+        <div class="day-card" style="border-left: 4px solid var(--accent);">
+            <div class="day-content" style="grid-column: 1 / -1;">
+                <div class="day-title-wrap">
+                    <div class="day-date">10月3日 - 10月4日 节后休整</div>
+                    <h3 class="day-title">郑州航空港万怡休整 1-2 晚 ➔ 精神饱满回市区</h3>
+                    <div class="day-hotel">🏡 避峰错峰 · 舒适归家</div>
+                </div>
+                <p style="font-size: 0.95rem; color: #475569; margin-bottom: 12px;">
+                    在万怡睡到自然醒，享用自助早餐（万豪会员可申请延迟退房至 14:00）。悠闲拆箱整理韩国免税战利品，在周边吃一碗热腾腾的河南烩面安抚中国胃。若住 2 晚，10月3日下午还可去附近的杉杉奥莱散步。
+                </p>
+                <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 0.9rem;">
+                    <strong>🚗 从空港万怡返回郑州市区交通（三选一）：</strong><br>
+                    1. <strong>城际高铁（最快）：</strong> 万怡打车 5 分钟至新郑机场高铁站，乘车 <strong>16 分钟直达郑州东站</strong>，完全不堵车。<br>
+                    2. <strong>打车/网约车：</strong> 滴滴上机场高速，到郑东新区约 35 分钟，金水区约 45 分钟。<br>
+                    3. <strong>地铁城郊线：</strong> 连通地铁 2 号线直贯市区南北。
+                </div>
+            </div>
+        </div>
+
+        <!-- Checklist Section -->
+        <div class="section-header" id="checklist-section">
+            <h2>🎒 行前准备核心核对清单 (Check-List)</h2>
+            <span class="tag">点击可勾选</span>
+        </div>
+
+        <div class="checklist-grid">
+            <div class="check-card">
+                <h3>📄 1. 证件与入境红线</h3>
+                <ul class="check-list">
+                    <li class="check-item"><input type="checkbox" id="c1"><label for="c1"><strong>护照：</strong> 有效期在 2025年4月以后（至少6个月以上），2页以上空白页</label></li>
+                    <li class="check-item"><input type="checkbox" id="c2"><label for="c2"><strong>韩国个人旅游签（C-3-9）：</strong> 提前 2-3 周找旅行社办妥单次/多次签证</label></li>
+                    <li class="check-item"><input type="checkbox" id="c3"><label for="c3"><strong>入境卡随身笔：</strong> 随身背包备黑色圆珠笔，机上填写入境卡与海关单</label></li>
+                    <li class="check-item"><input type="checkbox" id="c4"><label for="c4"><strong>电子 Q-CODE：</strong> 出发前 48 小时内网上填写健康申报生成二维码</label></li>
+                </ul>
+            </div>
+
+            <div class="check-card">
+                <h3>🏨 2. 酒店与票务特殊锁定</h3>
+                <ul class="check-list">
+                    <li class="check-item"><input type="checkbox" id="c5"><label for="c5"><strong>首尔洲际晚到备注：</strong> 平台联系客服备注 9/28 半夜 00:00 办理入住，保留房源</label></li>
+                    <li class="check-item"><input type="checkbox" id="c6"><label for="c6"><strong>郑州万怡报备：</strong> 10/2 白天去电前台告知 22:45 落地，预约接机班车</label></li>
+                    <li class="check-item"><input type="checkbox" id="c7"><label for="c7"><strong>天空胶囊列车预约：</strong> 提前 2-4 周在蓝线公园官网预约 9/26 青沙浦➔尾浦车票</label></li>
+                    <li class="check-item"><input type="checkbox" id="c8"><label for="c8"><strong>KTX 车票截图：</strong> 保存 9/28 20:40 釜山➔首尔车票截图，对号入座</label></li>
+                </ul>
+            </div>
+
+            <div class="check-card">
+                <h3>📱 3. 手机网络与必备 App</h3>
+                <ul class="check-list">
+                    <li class="check-item"><input type="checkbox" id="c9"><label for="c9"><strong>境外网络流量：</strong> 购买韩国 8 天无限流量卡或开通境外 eSIM</label></li>
+                    <li class="check-item"><input type="checkbox" id="c10"><label for="c10"><strong>Naver Map（中文版）：</strong> 韩国唯一精准步行与公共交通导航神器</label></li>
+                    <li class="check-item"><input type="checkbox" id="c11"><label for="c11"><strong>Kakao T / Uber：</strong> 绑定信用卡，首尔站深夜打车与市区出行必备</label></li>
+                    <li class="check-item"><input type="checkbox" id="c12"><label for="c12"><strong>Papago 翻译官：</strong> 拍照翻译菜单、药盒、路牌极度地道准确</label></li>
+                </ul>
+            </div>
+
+            <div class="check-card">
+                <h3>💳 4. 货币支付与退税准备</h3>
+                <ul class="check-list">
+                    <li class="check-item"><input type="checkbox" id="c13"><label for="c13"><strong>韩元现金（20-30万）：</strong> 用于 T-Money 充值（只收现金）和传统小吃摊</label></li>
+                    <li class="check-item"><input type="checkbox" id="c14"><label for="c14"><strong>芯片信用卡：</strong> 准备 1-2 张 Visa / Mastercard 带芯片外币信用卡</label></li>
+                    <li class="check-item"><input type="checkbox" id="c15"><label for="c15"><strong>微信/支付宝：</strong> 百货、便利店、免税店直接手机支付汇率极佳</label></li>
+                    <li class="check-item"><input type="checkbox" id="c16"><label for="c16"><strong>随身护照即时退税：</strong> 满 1.5 万韩元即可现场直接免税扣除</label></li>
+                </ul>
+            </div>
+
+            <div class="check-card">
+                <h3>🔌 5. 行李打包与生活物品</h3>
+                <ul class="check-list">
+                    <li class="check-item"><input type="checkbox" id="c17"><label for="c17"><strong>德标/韩标插头（2个粗圆孔4.8mm）：</strong> 国内扁头无法直接插入，必带！</label></li>
+                    <li class="check-item"><input type="checkbox" id="c18"><label for="c18"><strong>牙刷牙膏自带：</strong> 韩国环保法禁止酒店免费提供一次性洗漱用具</label></li>
+                    <li class="check-item"><input type="checkbox" id="c19"><label for="c19"><strong>初秋叠穿衣物：</strong> 白天 24℃舒适，早晚 15℃，备轻便风衣/针织开衫</label></li>
+                    <li class="check-item"><input type="checkbox" id="c20"><label for="c20"><strong>舒适健步鞋：</strong> 釜山与首尔山坡窄巷多，一双轻便耐走的球鞋</label></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Taxi Flashcards Section -->
+        <div class="section-header" id="taxi-section">
+            <h2>🚕 关键地点出租车中韩对照卡片</h2>
+            <span class="tag">给出租车司机看</span>
+        </div>
+
+        <div class="flashcard-grid">
+            <div class="flashcard">
+                <div class="flashcard-title">1. 釜山海云台万枫酒店</div>
+                <div class="flashcard-kr">페어필드 바이 메리어트 부산</div>
+                <div class="flashcard-addr">주소: 부산 해운대구 해운대해변로 314</div>
+            </div>
+
+            <div class="flashcard">
+                <div class="flashcard-title">2. 釜山站（高铁站）</div>
+                <div class="flashcard-kr">부산역 (KTX 타는 곳)</div>
+                <div class="flashcard-addr">주소: 부산 동구 중앙대로 206</div>
+            </div>
+
+            <div class="flashcard">
+                <div class="flashcard-title">3. 首尔帕纳斯洲际酒店（江南）</div>
+                <div class="flashcard-kr">그랜드 인터컨티넨탈 서울 파르나스</div>
+                <div class="flashcard-addr">주소: 서울 강남구 테헤란로 521 (삼성역 5번출구)</div>
+            </div>
+
+            <div class="flashcard">
+                <div class="flashcard-title">4. 仁川机场 T1 航站楼</div>
+                <div class="flashcard-kr">인천국제공항 제1여객터미널</div>
+                <div class="flashcard-addr">출국장 3층 (3rd Floor Departures)</div>
+            </div>
+
+            <div class="flashcard">
+                <div class="flashcard-title">5. 郑州航空港万怡酒店</div>
+                <div class="flashcard-kr">郑州航空港万怡酒店</div>
+                <div class="flashcard-addr">地址：郑州市航空港经济综合实验区郑港六路</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>✈️ 祝您旅途平安愉快 · 留下精彩回忆！本页面可在浏览器离线使用，亦可直接通过快捷键 Command+P 保存为 PDF 文件。</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Checkbox status persistence
+        document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
+            const id = cb.id;
+            const saved = localStorage.getItem('trip_chk_' + id);
+            if (saved === 'true') {
+                cb.checked = true;
+                cb.closest('.check-item').classList.add('done');
+            }
+            cb.addEventListener('change', () => {
+                localStorage.setItem('trip_chk_' + id, cb.checked);
+                if (cb.checked) {
+                    cb.closest('.check-item').classList.add('done');
+                } else {
+                    cb.closest('.check-item').classList.remove('done');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
